@@ -1,0 +1,694 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: TODO
+paths:
+  /v1/providers/:
+    get:
+      operationId: ListProviders
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                required:
+                - name
+                - email
+                - phone
+                - language
+                - currency
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                  name:
+                    type: string
+                  email:
+                    type: string
+                    format: email
+                  phone:
+                    type: string
+                  language:
+                    type: string
+                  currency:
+                    type: string
+    post:
+      operationId: CreateProvider
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - name
+              - email
+              - phone
+              - language
+              - currency
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                phone:
+                  type: string
+                language:
+                  type: string
+                currency:
+                  type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                required:
+                - name
+                - email
+                - phone
+                - language
+                - currency
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                  name:
+                    type: string
+                  email:
+                    type: string
+                    format: email
+                  phone:
+                    type: string
+                  language:
+                    type: string
+                  currency:
+                    type: string
+  /v1/providers/{id}/:
+    get:
+      operationId: RetrieveProvider
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this provider.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                required:
+                - name
+                - email
+                - phone
+                - language
+                - currency
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                  name:
+                    type: string
+                  email:
+                    type: string
+                    format: email
+                  phone:
+                    type: string
+                  language:
+                    type: string
+                  currency:
+                    type: string
+    put:
+      operationId: UpdateProvider
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this provider.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - name
+              - email
+              - phone
+              - language
+              - currency
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                phone:
+                  type: string
+                language:
+                  type: string
+                currency:
+                  type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                required:
+                - name
+                - email
+                - phone
+                - language
+                - currency
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                  name:
+                    type: string
+                  email:
+                    type: string
+                    format: email
+                  phone:
+                    type: string
+                  language:
+                    type: string
+                  currency:
+                    type: string
+    patch:
+      operationId: PartialUpdateProvider
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this provider.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                phone:
+                  type: string
+                language:
+                  type: string
+                currency:
+                  type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                required:
+                - name
+                - email
+                - phone
+                - language
+                - currency
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                  name:
+                    type: string
+                  email:
+                    type: string
+                    format: email
+                  phone:
+                    type: string
+                  language:
+                    type: string
+                  currency:
+                    type: string
+    delete:
+      operationId: DestroyProvider
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this provider.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                required:
+                - name
+                - email
+                - phone
+                - language
+                - currency
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                  name:
+                    type: string
+                  email:
+                    type: string
+                    format: email
+                  phone:
+                    type: string
+                  language:
+                    type: string
+                  currency:
+                    type: string
+  /v1/service_areas/:
+    get:
+      operationId: ListServiceAreas
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                required:
+                - provider_id
+                - name
+                - price
+                - polygon
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  provider:
+                    required:
+                    - name
+                    - email
+                    - phone
+                    - language
+                    - currency
+                    properties:
+                      id:
+                        type: string
+                        readOnly: true
+                      name:
+                        type: string
+                      email:
+                        type: string
+                        format: email
+                      phone:
+                        type: string
+                      language:
+                        type: string
+                      currency:
+                        type: string
+                    type: object
+                    readOnly: true
+                  provider_id:
+                    type: string
+                  name:
+                    type: string
+                    maxLength: 100
+                  price:
+                    type: number
+                    multipleOf: 0.01
+                    maximum: 10000000000000000000000000000000000000000000000000000000000
+                    minimum: -10000000000000000000000000000000000000000000000000000000000
+                  polygon:
+                    type: string
+    post:
+      operationId: CreateServiceArea
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - provider_id
+              - name
+              - price
+              - polygon
+              properties:
+                provider_id:
+                  type: string
+                name:
+                  type: string
+                  maxLength: 100
+                price:
+                  type: number
+                  multipleOf: 0.01
+                  maximum: 10000000000000000000000000000000000000000000000000000000000
+                  minimum: -10000000000000000000000000000000000000000000000000000000000
+                polygon:
+                  type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                required:
+                - provider_id
+                - name
+                - price
+                - polygon
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  provider:
+                    required:
+                    - name
+                    - email
+                    - phone
+                    - language
+                    - currency
+                    properties:
+                      id:
+                        type: string
+                        readOnly: true
+                      name:
+                        type: string
+                      email:
+                        type: string
+                        format: email
+                      phone:
+                        type: string
+                      language:
+                        type: string
+                      currency:
+                        type: string
+                    type: object
+                    readOnly: true
+                  provider_id:
+                    type: string
+                  name:
+                    type: string
+                    maxLength: 100
+                  price:
+                    type: number
+                    multipleOf: 0.01
+                    maximum: 10000000000000000000000000000000000000000000000000000000000
+                    minimum: -10000000000000000000000000000000000000000000000000000000000
+                  polygon:
+                    type: string
+  /v1/service_areas/{id}/:
+    get:
+      operationId: RetrieveServiceArea
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this service area.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                required:
+                - provider_id
+                - name
+                - price
+                - polygon
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  provider:
+                    required:
+                    - name
+                    - email
+                    - phone
+                    - language
+                    - currency
+                    properties:
+                      id:
+                        type: string
+                        readOnly: true
+                      name:
+                        type: string
+                      email:
+                        type: string
+                        format: email
+                      phone:
+                        type: string
+                      language:
+                        type: string
+                      currency:
+                        type: string
+                    type: object
+                    readOnly: true
+                  provider_id:
+                    type: string
+                  name:
+                    type: string
+                    maxLength: 100
+                  price:
+                    type: number
+                    multipleOf: 0.01
+                    maximum: 10000000000000000000000000000000000000000000000000000000000
+                    minimum: -10000000000000000000000000000000000000000000000000000000000
+                  polygon:
+                    type: string
+    put:
+      operationId: UpdateServiceArea
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this service area.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - provider_id
+              - name
+              - price
+              - polygon
+              properties:
+                provider_id:
+                  type: string
+                name:
+                  type: string
+                  maxLength: 100
+                price:
+                  type: number
+                  multipleOf: 0.01
+                  maximum: 10000000000000000000000000000000000000000000000000000000000
+                  minimum: -10000000000000000000000000000000000000000000000000000000000
+                polygon:
+                  type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                required:
+                - provider_id
+                - name
+                - price
+                - polygon
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  provider:
+                    required:
+                    - name
+                    - email
+                    - phone
+                    - language
+                    - currency
+                    properties:
+                      id:
+                        type: string
+                        readOnly: true
+                      name:
+                        type: string
+                      email:
+                        type: string
+                        format: email
+                      phone:
+                        type: string
+                      language:
+                        type: string
+                      currency:
+                        type: string
+                    type: object
+                    readOnly: true
+                  provider_id:
+                    type: string
+                  name:
+                    type: string
+                    maxLength: 100
+                  price:
+                    type: number
+                    multipleOf: 0.01
+                    maximum: 10000000000000000000000000000000000000000000000000000000000
+                    minimum: -10000000000000000000000000000000000000000000000000000000000
+                  polygon:
+                    type: string
+    patch:
+      operationId: PartialUpdateServiceArea
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this service area.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                provider_id:
+                  type: string
+                name:
+                  type: string
+                  maxLength: 100
+                price:
+                  type: number
+                  multipleOf: 0.01
+                  maximum: 10000000000000000000000000000000000000000000000000000000000
+                  minimum: -10000000000000000000000000000000000000000000000000000000000
+                polygon:
+                  type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                required:
+                - provider_id
+                - name
+                - price
+                - polygon
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  provider:
+                    required:
+                    - name
+                    - email
+                    - phone
+                    - language
+                    - currency
+                    properties:
+                      id:
+                        type: string
+                        readOnly: true
+                      name:
+                        type: string
+                      email:
+                        type: string
+                        format: email
+                      phone:
+                        type: string
+                      language:
+                        type: string
+                      currency:
+                        type: string
+                    type: object
+                    readOnly: true
+                  provider_id:
+                    type: string
+                  name:
+                    type: string
+                    maxLength: 100
+                  price:
+                    type: number
+                    multipleOf: 0.01
+                    maximum: 10000000000000000000000000000000000000000000000000000000000
+                    minimum: -10000000000000000000000000000000000000000000000000000000000
+                  polygon:
+                    type: string
+    delete:
+      operationId: DestroyServiceArea
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this service area.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                required:
+                - provider_id
+                - name
+                - price
+                - polygon
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  provider:
+                    required:
+                    - name
+                    - email
+                    - phone
+                    - language
+                    - currency
+                    properties:
+                      id:
+                        type: string
+                        readOnly: true
+                      name:
+                        type: string
+                      email:
+                        type: string
+                        format: email
+                      phone:
+                        type: string
+                      language:
+                        type: string
+                      currency:
+                        type: string
+                    type: object
+                    readOnly: true
+                  provider_id:
+                    type: string
+                  name:
+                    type: string
+                    maxLength: 100
+                  price:
+                    type: number
+                    multipleOf: 0.01
+                    maximum: 10000000000000000000000000000000000000000000000000000000000
+                    minimum: -10000000000000000000000000000000000000000000000000000000000
+                  polygon:
+                    type: string
+  /v1/get_areas/:
+    get:
+      operationId: ListServiceAreaAPIs
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+  /:
+    get:
+      operationId: Listschema_views
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
